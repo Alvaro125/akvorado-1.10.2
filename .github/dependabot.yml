@@ -1,0 +1,72 @@
+---
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    commit-message:
+      prefix: build
+    schedule:
+      interval: monthly
+    labels:
+      - dependencies
+  - package-ecosystem: npm
+    directory: /console/frontend
+    versioning-strategy: increase-if-necessary
+    commit-message:
+      prefix: build
+    schedule:
+      interval: monthly
+    labels:
+      - dependencies
+    open-pull-requests-limit: 10
+    groups:
+      vueuse:
+        patterns:
+          - "@vueuse/*"
+      vue:
+        patterns:
+          - "vue"
+          - "vue-router"
+          - "vue-tsc"
+          - "@vue/*"
+        exclude-patterns:
+          - "@vue/eslint-*"
+      codemirror:
+        patterns:
+          - "@codemirror/*"
+          - "@lezer/*"
+      dev-dependencies:
+        patterns:
+          - "@tsconfig/*"
+          - "@vitejs/*"
+          - "@vitest/*"
+          - "@volar/*"
+          - "@vue/eslint-*"
+          - "autoprefixer"
+          - "eslint*"
+          - "patch-package"
+          - "postcss"
+          - "prettier*"
+          - "typescript-language-server"
+          - "vite"
+          - "vitest"
+      tailwindcss:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "@headlessui/tailwindcss"
+      typing:
+        patterns:
+          - "@types/*"
+  - package-ecosystem: gomod
+    directory: /
+    commit-message:
+      prefix: build
+    schedule:
+      interval: weekly
+    labels:
+      - dependencies
+    groups:
+      golang-org-x:
+        patterns:
+          - "golang.org/x/*"
